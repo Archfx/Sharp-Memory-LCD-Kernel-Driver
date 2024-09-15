@@ -7,7 +7,7 @@ ccflags-y := -DDEBUG -g -std=gnu99 -Wno-declaration-after-statement
 # LINUX_DIR is set by Buildroot, but not if running manually
 ifeq ($(LINUX_DIR),)
 # LINUX_DIR := /lib/modules/$(shell uname -r)/build
-LINUX_DIR := /lib/modules/*-legacy-sunxi64/build
+LINUX_DIR := $(wildcard /lib/modules/*-legacy-sunxi64/build)
 endif
 
 BOOT_CONFIG_LINE := dtoverlay=sharp
