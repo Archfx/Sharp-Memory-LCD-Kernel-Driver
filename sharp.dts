@@ -5,7 +5,7 @@
 	compatible = "allwinner,sun50i-h618", "allwinner,sunxi";
 
 	fragment@0 {
-		target = <&spi0>;
+		target = <&spi1>;  /* Updated to SPI1 */
 		__overlay__ {
 			#address-cells = <2>;  /* Two cells for addressing */
 			#size-cells = <1>;     /* One cell for size */
@@ -28,8 +28,8 @@
 	fragment@1 {
 		target = <&pio>;
 		__overlay__ {
-			spi0_pins: spi0_pins {
-				pins = "PH7", "PH6"; /* Adjust based on H618 SPI pin definitions */
+			spi1_pins: spi1_pins {
+				pins = "PH7", "PH6"; /* Adjust based on H618 SPI1 pin definitions */
 				function = "spi"; /* SPI configuration */
 			};
 		};
@@ -46,7 +46,7 @@
 	};
 
 	fragment@3 {
-		target = <&spi0>;
+		target = <&spi1>;  /* Updated to SPI1 */
 		__overlay__ {
 			#address-cells = <1>;
 			#size-cells = <0>;
