@@ -6,7 +6,8 @@ ccflags-y := -DDEBUG -g -std=gnu99 -Wno-declaration-after-statement
 
 # LINUX_DIR is set by Buildroot, but not if running manually
 ifeq ($(LINUX_DIR),)
-LINUX_DIR := /lib/modules/$(shell uname -r)/build
+# LINUX_DIR := /lib/modules/$(shell uname -r)/build
+LINUX_DIR := /lib/modules/*-legacy-sunxi64/build
 endif
 
 BOOT_CONFIG_LINE := dtoverlay=sharp
@@ -23,15 +24,15 @@ install: sharp.ko sharp.dtbo
 	# Install kernel module
 	$(MAKE) -C '$(LINUX_DIR)' M='$(shell pwd)' modules_install
 	# Install device tree overlay
-	install -D -m 0644 sharp.dtbo /boot/overlays/
-	# Add configuration line if it wasn't already there
-	grep -qxF '$(BOOT_CONFIG_LINE)' /boot/config.txt \
-		|| echo '[all]\n$(BOOT_CONFIG_LINE)' >> /boot/config.txt
-	# Add auto-load module line if it wasn't already there
-	grep -qxF 'sharp' /etc/modules \
-		|| echo 'sharp' >> /etc/modules
-	# Rebuild dependencies
-	depmod -A
+	# install -D -m 0644 sharp.dtbo /boot/overlays/
+	# # Add configuration line if it wasn't already there
+	# grep -qxF '$(BOOT_CONFIG_LINE)' /boot/config.txt \
+	# 	|| echo '[all]\n$(BOOT_CONFIG_LINE)' >> /boot/config.txt
+	# # Add auto-load module line if it wasn't already there
+	# grep -qxF 'sharp' /etc/modules \
+	# 	|| echo 'sharp' >> /etc/modules
+	# # Rebuild dependencies
+	# depmod -A
 
 uninstall:
 	# Remove auto-load module line and create a backup file
