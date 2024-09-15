@@ -51,9 +51,9 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			sharp: sharp@0 {
+			sharp: sharp@1 {
 				compatible = "sharp";
-				reg = <0>; /* SPI device on CS 0 */
+				reg = <1>; /* SPI device on CS 0 */
 				pinctrl-names = "default";
 				pinctrl-0 = <&sharp_pins>;
 
