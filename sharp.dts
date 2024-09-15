@@ -7,17 +7,19 @@
 	fragment@0 {
 		target = <&spi0>;
 		__overlay__ {
+			#address-cells = <2>;  /* Two cells for addressing */
+			#size-cells = <1>;     /* One cell for size */
 			status = "okay";
 
 			spidev@0 {
 				compatible = "spidev";
-				reg = <0>; /* Chip select 0 */
+				reg = <0 0 0>; /* Using two address cells and one size cell */
 				status = "disabled";
 			};
 
 			spidev@1 {
 				compatible = "spidev";
-				reg = <1>; /* Chip select 1 */
+				reg = <0 1 0>; /* Using two address cells and one size cell */
 				status = "disabled";
 			};
 		};
@@ -27,7 +29,7 @@
 		target = <&pio>;
 		__overlay__ {
 			spi0_pins: spi0_pins {
-				pins = "PH7", "PH6"; /* SPI clock and MOSI for H618 */
+				pins = "PH7", "PH6"; /* Adjust based on H618 SPI pin definitions */
 				function = "spi"; /* SPI configuration */
 			};
 		};
@@ -37,8 +39,8 @@
 		target = <&pio>;
 		__overlay__ {
 			sharp_pins: sharp_pins {
-				pins = "PH6", "PH5"; /* Updated to the correct GPIOs for H618 */
-				function = "output"; /* Configured as output pins */
+				pins = "PG8", "PG2"; /* Updated to actual GPIOs for H618 */
+				function = "output"; /* Configuring as output pins */
 			};
 		};
 	};
@@ -55,8 +57,8 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&sharp_pins>;
 
-				vcom-gpios = <&pio 7 6 0>; /* PH6 mapped to vcom */
-				disp-gpios = <&pio 7 5 0>; /* PH5 mapped to display control */
+				vcom-gpios = <&pio 7 8 0>; /* PG8 mapped to vcom */
+				disp-gpios = <&pio 7 2 0>; /* PG2 mapped to display control */
 
 				spi-cs-high;
 				spi-max-frequency = <8000000>; /* Maximum SPI frequency */
